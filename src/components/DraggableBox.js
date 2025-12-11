@@ -1,41 +1,39 @@
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState, useEffect } from "react";
 
 export default function DraggableBox({ children, left, top, width, height, onMove }) {
-  const boxRef = useRef(null)
-  const [dragging, setDragging] = useState(false)
-  const [start, setStart] = useState({ x: 0, y: 0 })
-  const [pos, setPos] = useState({ left, top })
+  const boxRef = useRef(null);
+  const [dragging, setDragging] = useState(false);
+  const [start, setStart] = useState({ x: 0, y: 0 });
+  const [pos, setPos] = useState({ left, top });
 
   useEffect(() => {
-    setPos({ left, top })
-  }, [left, top])
+    setPos({ left, top });
+  }, [left, top]);
 
   const handlePointerDown = e => {
-    e.preventDefault()
-    setDragging(true)
-    setStart({ x: e.clientX - pos.left, y: e.clientY - pos.top })
-  }
+    e.preventDefault();
+    setDragging(true);
+    setStart({ x: e.clientX - pos.left, y: e.clientY - pos.top });
+  };
 
   const handlePointerMove = e => {
-    if (!dragging) return
-    const newLeft = e.clientX - start.x
-    const newTop = e.clientY - start.y
-    setPos({ left: newLeft, top: newTop })
-    onMove(newLeft, newTop)
-  }
+    if (!dragging) return;
+    const newLeft = e.clientX - start.x;
+    const newTop = e.clientY - start.y;
+    setPos({ left: newLeft, top: newTop });
+    if (onMove) onMove(newLeft, newTop);
+  };
 
-  const handlePointerUp = () => {
-    setDragging(false)
-  }
+  const handlePointerUp = () => setDragging(false);
 
   useEffect(() => {
-    window.addEventListener("pointermove", handlePointerMove)
-    window.addEventListener("pointerup", handlePointerUp)
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", handlePointerUp);
     return () => {
-      window.removeEventListener("pointermove", handlePointerMove)
-      window.removeEventListener("pointerup", handlePointerUp)
-    }
-  })
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", handlePointerUp);
+    };
+  });
 
   return (
     <div
@@ -54,10 +52,11 @@ export default function DraggableBox({ children, left, top, width, height, onMov
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        userSelect: "none"
+        userSelect: "none",
+        boxSizing: "border-box"
       }}
     >
       {children}
     </div>
-  )
+  );
 }
