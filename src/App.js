@@ -35,7 +35,7 @@ const FIELD_TYPES = [
   { type: "text", label: "Text Box", icon: Type, color: "#3B82F6" },
   { type: "signature", label: "Signature", icon: Signature, color: "#10B981" },
   { type: "image", label: "Image Box", icon: ImageIcon, color: "#8B5CF6" },
-  { type: "date", label: "Date", icon: Calendar, color: "#F59E0B" },
+  { type: "date", label: "Date", icon: Calendar, czolor: "#F59E0B" },
   { type: "radio", label: "Radio", icon: Circle, color: "#EC4899" }
 ]
 
